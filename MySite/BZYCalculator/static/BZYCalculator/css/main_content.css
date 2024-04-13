@@ -1,0 +1,123 @@
+.main-content-pa {
+    text-align: center;
+    margin-left: 250px;
+    padding: 0px;
+    vertical-align: top;
+}
+
+.main-content-pa form {
+    text-align: left; /* Выравнивание текста в форме по левому краю */
+    margin: 0 auto; /* Автоматическое выравнивание формы по центру */
+    max-width: 400px; /* Максимальная ширина формы */
+}
+
+.main-content-pa form p {
+    margin-bottom: 10px; /* Добавляем небольшой отступ между элементами формы */
+}
+
+.main-content-pa form label {
+    display: block; /* Делаем метки формы блочными элементами, чтобы они были над полями */
+    font-weight: bold; /* Добавляем полужирное начертание к меткам */
+}
+
+.main-content-pa form input[type="text"],
+.main-content-pa form input[type="number"],
+.main-content-pa form input[type="email"],
+.main-content-pa form textarea {
+    width: 100%; /* Растягиваем поля ввода на всю доступную ширину */
+    padding: 8px; /* Добавляем внутренние отступы для полей ввода */
+    margin-bottom: 10px; /* Добавляем небольшой отступ между полями ввода */
+    border: 1px solid #ccc; /* Добавляем рамку вокруг полей ввода */
+    border-radius: 5px; /* Закругляем углы рамки */
+}
+
+.main-content-pa form button {
+    background-color: #4CAF50; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    padding: 10px 20px; /* Внутренние отступы кнопки */
+    border: none; /* Убираем границу кнопки */
+    border-radius: 5px; /* Закругляем углы кнопки */
+    cursor: pointer; /* Задаем стандартный курсор при наведении на кнопку */
+}
+
+.main-content-pa form button:hover {
+    background-color: #45a049; /* Изменяем цвет фона кнопки при наведении */
+}
+#foodList {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#foodList th, #foodList td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#foodList th {
+    background-color: #f2f2f2;
+    white-space: nowrap; /* Запрет переноса текста */
+}
+
+#foodList tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#foodList tr:hover {
+    background-color: #ddd;
+}
+
+#foodList th:first-child {
+    width: 150px; /* Задаем фиксированную ширину для первого столбца */
+    overflow: hidden; /* Скрываем текст, выходящий за пределы ячейки */
+    text-overflow: ellipsis; /* Добавляем многоточие для обрезанного текста */
+    white-space: nowrap; /* Запрет переноса текста */
+}
+
+.sort-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit; /* Использует цвет текста из родительского элемента */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+/* Стили для заголовков столбцов */
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+  padding: 8px;
+}
+
+/* Стили для ячеек таблицы */
+td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+}
+
+/* Стили для четных строк */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Стили для кнопки "Создать корзину" */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Стили для кнопки "Создать корзину" при наведении */
+button:hover {
+  background-color: #45a049;
+}

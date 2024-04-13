@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link type="text/css" href="{% static 'BZYcalculator/css/registration.css' %}" rel="stylesheet" />
+<h1>Вход</h1>
+<form method="POST" action="">
+    {% csrf_token %}
+    <p><label>Имя пользователя: {{ form.username }}</label></p>
+    {% if form.username.errors %}
+        <p class="error-message" style="color: red">{{ form.username.errors }}</p>
+    {% endif %}
+    <p><label>Пароль: {{ form.password }}</label></p>
+    {% if form.password.errors %}
+        <p class="error-message" style="color: red">{{ form.password.errors }}</p>
+    {% endif %}
+    <button type="submit">Отправить</button>
+</form>
+{% endblock %}

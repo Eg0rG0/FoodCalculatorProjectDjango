@@ -1,0 +1,67 @@
+{% extends 'base_personal_account.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="{% static 'BZYcalculator/css/main_content.css' %}" rel="stylesheet" />
+</head>
+<div class="main-content">
+    <h2>Мои корзины</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <p><label>Название: {{ form.name }}</label></p>
+        <label for="food_list">Выберите продукты для добавления:</label><br>
+        <select id="food_list" name="foods" multiple required>
+            {% for food in available_foods %}
+                <option value="{{ food.pk }}">{{ food.food_name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit">Создать корзину</button>
+    </form>
+
+    <h2>Список моих корзин</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Название корзины</th>
+                <th>Продукты</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cart in carts %}
+                <tr>
+                    <td>{{ cart.name }}</td>
+                    <td>
+                        {% if cart.foods.all %}
+                            <ul>
+                                {% for food in cart.foods.all %}
+                                    <li>{{ food.food_name }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>Корзина пуста</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="POST" action="{% url 'food_cart_change' cart_id=cart.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit">Изменить</button>
+                        </form>
+                        <form method="POST" action="{% url 'delete_cart' cart.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">У вас пока нет корзин.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

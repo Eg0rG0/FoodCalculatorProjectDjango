@@ -1,0 +1,58 @@
+{% extends 'base_personal_account.html' %}
+
+{% block content %}
+<div class="main-content">
+    <h2>Мои данные</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ form.initial.username }}">
+        <input type="hidden" name="first_name" value="{{ form.initial.first_name }}">
+        <input type="hidden" name="last_name" value="{{ form.initial.last_name }}">
+        <input type="hidden" name="email" value="{{ form.initial.email }}">
+        <p><label>Имя пользователя: {{ form.username }}</label></p>
+        {% if form.username.errors %}
+            <p class="error-message" style="color: red">{{ form.username.errors }}</p>
+        {% endif %}
+        <button type="submit">Изменить</button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ form.initial.username }}">
+        <input type="hidden" name="first_name" value="{{ form.initial.first_name }}">
+        <input type="hidden" name="last_name" value="{{ form.initial.last_name }}">
+        <input type="hidden" name="email" value="{{ form.initial.email }}">
+        <p><label>Имя богатыря(или красавицы?): {{ form.first_name }}</label></p>
+        {% if form.first_name.errors %}
+            <p class="error-message" style="color: red">{{ form.first_name.errors }}</p>
+        {% endif %}
+        <button type="submit">Изменить</button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ form.initial.username }}">
+        <input type="hidden" name="first_name" value="{{ form.initial.first_name }}">
+        <input type="hidden" name="last_name" value="{{ form.initial.last_name }}">
+        <input type="hidden" name="email" value="{{ form.initial.email }}">
+        <p><label>Фамилия богатыря(или красавицы?): {{ form.last_name }}</label></p>
+        {% if form.last_name.errors %}
+            <p class="error-message" style="color: red">{{ form.last_name.errors }}</p>
+        {% endif %}
+        <button type="submit">Изменить</button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{ form.initial.username }}">
+        <input type="hidden" name="first_name" value="{{ form.initial.first_name }}">
+        <input type="hidden" name="last_name" value="{{ form.initial.last_name }}">
+        <input type="hidden" name="email" value="{{ form.initial.email }}">
+        <p><label>Почта доброго молодца: {{ form.email }}</label></p>
+        {% if form.email.errors %}
+            <p class="error-message" style="color: red">{{ form.email.errors }}</p>
+        {% endif %}
+        <button type="submit">Изменить</button>
+    </form>
+</div>
+{% endblock %}

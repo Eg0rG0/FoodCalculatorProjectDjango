@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #F5F5DC; /* Более теплый цвет слоновой кости */
+    padding: 20px 0; /* Внутренние отступы сверху и снизу */
+}
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.left li {
+    font-size: 20px; /* Размер текста для ссылки "Главная страница" */
+    margin-left: 20px;
+}
+
+ul.right {
+    display: flex;
+    margin-right: 20px; /* Добавляем отступ справа */
+}
+
+ul.right li {
+    font-size: 18px; /* Размер текста для ссылок в правой части */
+    margin-left: 20px;
+}
+
+
+.left-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Растягиваем контейнер на всю доступную высоту */
+}
+
+.left-menu ul {
+    list-style: none; /* Убираем маркеры списков */
+    padding: 0;
+    margin: 0;
+}
+
+.left-menu ul li {
+    margin-bottom: 10px; /* Добавляем отступы между пунктами списка */
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px; /* Ширина .left-menu */
+    height: 100%;
+    background-color: #f0f0f0; /* Цвет фона для левой части */
+    z-index: -1; /* Помещаем псевдоэлемент под остальные элементы */
+}
+

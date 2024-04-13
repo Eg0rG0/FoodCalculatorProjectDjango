@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #F5F5DC; /* Более теплый цвет слоновой кости */
+    padding: 20px 0; /* Внутренние отступы сверху и снизу */
+}
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.left li {
+    font-size: 20px; /* Размер текста для ссылки "Главная страница" */
+    margin-left: 20px;
+}
+
+ul.right {
+    display: flex;
+    margin-right: 20px; /* Добавляем отступ справа */
+}
+
+ul.right li {
+    font-size: 18px; /* Размер текста для ссылок в правой части */
+    margin-left: 20px;
+}
+
+.main-content {
+    text-align: center; /* Выравниваем текст по центру */
+    margin-top: -50px; /* Увеличиваем отступ сверху */
+}

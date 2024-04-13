@@ -1,0 +1,52 @@
+{% extends 'base_personal_account.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="{% static 'BZYcalculator/css/main_content.css' %}" rel="stylesheet" />
+</head>
+<div class="main-content">
+    <h2>Изменение корзины "{{ cart.name }}"</h2>
+    {% if available_foods %}
+        <form method="POST">
+            {% csrf_token %}
+            <label for="food_list">Выберите продукты для добавления:</label><br>
+            <select id="food_list" name="foods" multiple required>
+            {% for food in available_foods %}
+                <option value="{{ food.pk }}">{{ food.food_name }}</option>
+            {% endfor %}
+            </select>
+            <br><br>
+            <br><br>
+            <button type="submit">Добавить в корзину</button>
+        </form>
+    {% else %}
+        <p>Нет доступных продуктов для добавления в корзину. Все продукты уже находятся в корзине.</p>
+    {% endif %}
+
+    <h3>Список продуктов в корзине</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Продукт</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food in cart.foods.all %}
+                <tr>
+                    <td>{{ food.food_name }}</td>
+                    <td>
+                        <a href="{% url 'delete_food_from_cart' cart_id=cart.pk food_id=food.pk %}">Удалить</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">Корзина пуста</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

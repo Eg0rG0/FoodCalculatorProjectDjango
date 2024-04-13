@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="{% static 'BZYcalculator/css/personal_account.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'BZYcalculator/css/styles.css' %}" rel="stylesheet" />
+     <link type="text/css" href="{% static 'BZYcalculator/css/main_content.css' %}" rel="stylesheet" />
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <ul class="left">
+            <li><a href="{% url 'home' %}">Главная страница</a></li>
+        </ul>
+        <ul class="right">
+            {% if user.is_authenticated %}
+                <li> <a href="{% url 'personal_account'%}">Личный кабинет</a></li>
+            {% else %}
+                <li><a href="{% url 'sing_up' %}">Вход</a></li>
+                <li><a href="{% url 'registration' %}">Регистрация</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="main-content">
+        <h1>Калькулятор БЖУ</h1>
+    </div>
+</header>
+
+<div class="container">
+    <div class="left-menu">
+        <ul>
+            <li><a href="{% url 'personal_data' %}">Мои данные</a></li>
+            <li><a href="{% url 'my_foods' %}">Мои блюда</a></li>
+            <li><a href="{% url 'my_carts' %}">Мои подборки</a></li>
+            <li><a href="{% url 'exit' %}">Выход</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+<div class="main-content-pa">
+    {% block content %} {% endblock %}
+</div>
+</html>

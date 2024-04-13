@@ -1,0 +1,24 @@
+{% extends 'base_personal_account.html' %}
+
+
+{% block content %}
+
+<div class="confirmation-message" id="confirmation-message">
+    <h2>Братан, ты не случайно нажал? Выходишь из аккаунта?</h2>
+    <div class="confirmation-buttons">
+        <form action="{% url 'exit' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="confirm" value="yes">Да</button>
+            <button type="button" onclick="hideConfirmation()">Нет</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function hideConfirmation() {
+        var confirmationMessage = document.getElementById("confirmation-message");
+        confirmationMessage.style.display = "none";
+    }
+</script>
+{% endblock %}
+

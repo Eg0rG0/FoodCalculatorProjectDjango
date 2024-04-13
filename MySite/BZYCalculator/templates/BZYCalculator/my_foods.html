@@ -1,0 +1,77 @@
+{% extends 'base_personal_account.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="{% static 'BZYcalculator/css/main_content.css' %}" rel="stylesheet" />
+</head>
+<div class="main-menu-pa">
+
+    <ul>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <h2>Создание еды</h2>
+            <p><label>Название: {{ form.food_name }}</label></p>
+            <p><label>Жиры: {{ form.fats }}</label></p>
+            <p><label>Углеводы: {{ form.carbs }}</label></p>
+            <p><label>Белки: {{ form.proteins }}</label></p>
+            <button type="submit">Отправить</button>
+        </form>
+    </ul>
+    <h2>Мои Блюда</h2>
+    <table id="foodList">
+        <thead>
+            <tr>
+                <th>
+                    <form method="GET" action="">
+                        <input type="hidden" name="sort_by" value="food_name">
+                        <input type="hidden" name="sort_direction" value="{% if request.GET.sort_direction == 'desc' %}asc{% else %}desc{% endif %}">
+                        <button type="submit" class="sort-button">Название</button>
+                    </form>
+                </th>
+                <th>
+                    <form method="GET" action="">
+                        <input type="hidden" name="sort_by" value="fats">
+                        <input type="hidden" name="sort_direction" value="{% if request.GET.sort_direction == 'desc' %}asc{% else %}desc{% endif %}">
+                        <button type="submit" class="sort-button">Жиры</button>
+                    </form>
+                </th>
+                <th>
+                    <form method="GET" action="">
+                        <input type="hidden" name="sort_by" value="carbs">
+                        <input type="hidden" name="sort_direction" value="{% if request.GET.sort_direction == 'desc' %}asc{% else %}desc{% endif %}">
+                        <button type="submit" class="sort-button">Углеводы</button>
+                    </form>
+                </th>
+                <th>
+                    <form method="GET" action="">
+                        <input type="hidden" name="sort_by" value="proteins">
+                        <input type="hidden" name="sort_direction" value="{% if request.GET.sort_direction == 'desc' %}asc{% else %}desc{% endif %}">
+                        <button type="submit" class="sort-button">Белки</button>
+                    </form>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food in user_foods %}
+            <tr>
+                <td>{{ food.food_name }}</td>
+                <td>{{ food.fats }}</td>
+                <td>{{ food.carbs }}</td>
+                <td>{{ food.proteins }}</td>
+                <td>
+                    <form method="POST" action="{% url 'delete_food' food.food_id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No foods added yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
