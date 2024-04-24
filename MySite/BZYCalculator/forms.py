@@ -1,13 +1,14 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm, AuthenticationForm
+from django.utils import timezone
 
-from .models import FoodCart, CustomUser, Food
+from .models import FoodCart, CustomUser, Food, Meal
 
 
 class CustomUserRegistrationForm(UserCreationForm):
-    password1 = forms.CharField(max_length=25, label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(max_length=25, label='Confirm Password', widget=forms.PasswordInput)
+    password1 = forms.CharField(max_length=25, label="Password", widget=forms.PasswordInput)
+    password2 = forms.CharField(max_length=25, label="Confirm Password", widget=forms.PasswordInput)
 
     error_messages = {
         "password_mismatch": "Брат мой, пароли не совпадают, я проверил два раза, честно",
@@ -27,7 +28,7 @@ class CustomUserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'password1', 'password2']
+        fields = ["username", "password1", "password2"]
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -38,12 +39,12 @@ class CustomUserRegistrationForm(UserCreationForm):
 
 
 class CustomUserSingUpForm(AuthenticationForm):
-    username = forms.CharField(max_length=25, label='Username')
-    password = forms.CharField(max_length=25, label='Password', widget=forms.PasswordInput)
+    username = forms.CharField(max_length=25, label="Username")
+    password = forms.CharField(max_length=25, label="Password", widget=forms.PasswordInput)
 
     def clean(self):
-        username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
 
         if not CustomUser.objects.filter(username=username).exists():
             self.add_error("username", "Дружище, так ты не зарегался, такого логина нет")
@@ -99,19 +100,46 @@ class FoodCartCreationForm(forms.ModelForm):
         model = FoodCart
         fields = ["name", "foods"]
         widgets = {
-            'foods': forms.SelectMultiple(attrs={'size': 5}),
+            "foods": forms.SelectMultiple(attrs={"size": 5}),
         }
 
 
 class FoodCartChangeForm(forms.ModelForm):
     class Meta:
         model = FoodCart
-        fields = ['foods']
+        fields = ["foods"]
         widgets = {
-            'foods': forms.CheckboxSelectMultiple,
+            "foods": forms.CheckboxSelectMultiple,
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['foods'].queryset = Food.objects.all()
+        self.fields["foods"].queryset = Food.objects.all()
 
+
+class AddMealForm(forms.ModelForm):
+    def __init__(self, *args, user=None, meal_type=None, date=None, **kwargs):
+        super(AddMealForm, self).__init__(*args, **kwargs)
+        self.user = user
+        self.meal_type = meal_type
+        self.date = date
+        available_foods = Food.objects.filter(user=user)
+        added_food_ids = Meal.objects.filter(user=user, meal_type=meal_type).values_list("food", flat=True)
+        self.fields["food"].queryset = available_foods.exclude(pk__in=added_food_ids)
+
+    class Meta:
+        model = Meal
+        fields = ["food", "weight"]
+        widgets = {
+            "food": forms.Select(attrs={"class": "form-control"}),
+            "weight": forms.NumberInput(attrs={"class": "form-control"}),
+        }
+
+    def save(self, commit=True):
+        instance = super(AddMealForm, self).save(commit=False)
+        instance.user = self.user
+        instance.meal_type = self.meal_type
+        instance.date = self.date
+        if commit:
+            instance.save()
+        return instance

@@ -1,5 +1,63 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Meals</h3>
+            <ul>
+                <li><a href="{% url 'calculate' meal_type='Breakfast' %}">Breakfast</a> -
+                    {% if breakfast_info %}
+                        Белки: {{ breakfast_info.total_proteins }},
+                        Жиры: {{ breakfast_info.total_fats }},
+                        Углеводы: {{ breakfast_info.total_carbs }},
+                        Калории: {{ breakfast_info.total_calories }}
+                    {% else %}
+                        Прием пищи пуст
+                    {% endif %}
+                </li>
+                <li><a href="{% url 'calculate' meal_type='Lunch' %}">Lunch</a> -
+                    {% if lunch_info %}
+                        Белки: {{ lunch_info.total_proteins }},
+                        Жиры: {{ lunch_info.total_fats }},
+                        Углеводы: {{ lunch_info.total_carbs }},
+                        Калории: {{ lunch_info.total_calories }}
+                    {% else %}
+                        Прием пищи пуст
+                    {% endif %}
+                </li>
+                <li><a href="{% url 'calculate' meal_type='Dinner' %}">Dinner</a> -
+                    {% if dinner_info %}
+                        Белки: {{ dinner_info.total_proteins }},
+                        Жиры: {{ dinner_info.total_fats }},
+                        Углеводы: {{ dinner_info.total_carbs }},
+                        Калории: {{ dinner_info.total_calories }}
+                    {% else %}
+                        Прием пищи пуст
+                    {% endif %}
+                </li>
+                <li><a href="{% url 'calculate' meal_type='Snack' %}">Snack</a> -
+                    {% if snack_info %}
+                        Белки: {{ snack_info.total_proteins }},
+                        Жиры: {{ snack_info.total_fats }},
+                        Углеводы: {{ snack_info.total_carbs }},
+                        Калории: {{ snack_info.total_calories }}
+                    {% else %}
+                        Прием пищи пуст
+                    {% endif %}
+                </li>
+                All BZU
+                    {% if snack_info %}
+                        Белки: {{ all_day_info.total_proteins }},
+                        Жиры: {{ all_day_info.total_fats }},
+                        Углеводы: {{ all_day_info.total_carbs }},
+                        Калории: {{ all_day_info.total_calories }}
+                    {% else %}
+                        Приемы пищи пусты
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}

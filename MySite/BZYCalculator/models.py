@@ -1,7 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import models
-from computed_property import ComputedDecimalField
 
 
 class CustomUserManager(BaseUserManager):
@@ -27,7 +26,7 @@ class CustomUser(AbstractBaseUser):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
 
     is_active = models.BooleanField(default=True)
@@ -68,9 +67,24 @@ class FoodCartManager(models.Manager):
 
 
 class FoodCart(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='carts')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="carts")
     foods = models.ManyToManyField(Food)
     name = models.CharField(max_length=100, default="MyCart")
 
     objects = FoodCartManager()
+
+
+class MealManager(models.Manager):
+    pass
+
+
+class Meal(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    food = models.ForeignKey(Food, on_delete=models.CASCADE, null=True)
+    weight = models.FloatField(null=True)
+    meal_type = models.CharField(max_length=10, null=True)
+    date = models.DateField(null=True)
+
+    objects = MealManager()
+
 

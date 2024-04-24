@@ -18,14 +18,14 @@ class FoodConsumer(AsyncJsonWebsocketConsumer):
             raise ValueError("No text section for incoming WebSocket frame!")
 
     async def receive_json(self, data, **kwargs):
-        sort_by = data.get('sort_by')
+        sort_by = data.get("sort_by")
 
-        if sort_by in ['fats', 'carbs', 'proteins']:
+        if sort_by in ["fats", "carbs", "proteins"]:
             user_foods = Food.objects.get_user_foods(self.user).order_by(sort_by)
             sorted_foods = [
-                {'food_name': food.food_name, 'fats': food.fats, 'carbs': food.carbs, 'proteins': food.proteins} for
+                {"food_name": food.food_name, "fats": food.fats, "carbs": food.carbs, "proteins": food.proteins} for
                 food in user_foods]
 
-            await self.send_json({'sorted_foods': sorted_foods})
+            await self.send_json({"sorted_foods": sorted_foods})
 
 

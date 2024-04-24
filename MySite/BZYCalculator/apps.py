@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 class BzycalculatorConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'BZYCalculator'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "BZYCalculator"
